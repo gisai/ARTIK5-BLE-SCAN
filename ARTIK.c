@@ -23,14 +23,14 @@ void print_devices(artik_bt_device *devices, int num)
 {
     int i = 0;
     for (i = 0; i < num; i++) {
-    	fprintf(stdout,"{\n");
-    	fprintf(stdout,"'id': '%d',\n", dev_id);
-    	fprintf(stdout,"'mac': '%s',\n", devices[i].remote_address ? devices[i].remote_address : "(null)");
-    	fprintf(stdout,"'screen': '%s',\n", devices[i].remote_name ? devices[i].remote_name : "(null)");
-    	fprintf(stdout,"'rssi': '%d',\n", devices[i].rssi);
-    	fprintf(stdout,"'batt': 'INCLUIR',\n");
-    	fprintf(stdout,"'initcode': 'INCLUIR'\n");
-        fprintf(stdout, "}\n");
+    	fprintf(stdout,"{");
+    	fprintf(stdout,"\"id\": \"%d\",", dev_id);
+    	fprintf(stdout,"\"mac\": \"%s\",", devices[i].remote_address ? devices[i].remote_address : "(null)");
+    	fprintf(stdout,"\"screen\": \"%s\",", devices[i].remote_name ? devices[i].remote_name : "(null)");
+    	fprintf(stdout,"\"rssi\": \"%d\",", devices[i].rssi);
+    	fprintf(stdout,"\"batt\": \"INCLUIR\",");
+    	fprintf(stdout,"\"initcode\": \"INCLUIR\"");
+        fprintf(stdout, "}");
     }
 }
 
@@ -68,7 +68,7 @@ artik_error bluetooth_scan(void)
     if (ret != S_OK)
         goto exit;
 
-    fprintf(stdout, "[");		// FOR JSON FORMAT
+    fprintf(stdout, "{\"device\":[");		// FOR JSON FORMAT
 
     ret = bt->start_scan();
     if (ret != S_OK)
@@ -78,7 +78,7 @@ artik_error bluetooth_scan(void)
                    (void *)loop);
     loop->run();
 exit:
-	fprintf(stdout, "]");		// FOR JSON FORMAT
+	fprintf(stdout, "]}");		// FOR JSON FORMAT
     bt->stop_scan();
     bt->unset_callback(BT_EVENT_SCAN);
     artik_release_api_module(loop);
