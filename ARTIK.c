@@ -30,8 +30,8 @@ void print_devices(artik_bt_device *devices, int num)
         fprintf(stdout,"\"mac\": \"%s\",", devices[i].remote_address ? devices[i].remote_address : "(null)");
         fprintf(stdout,"\"screen\": \"%s\",", devices[i].remote_name ? devices[i].remote_name : "(null)");
         fprintf(stdout,"\"rssi\": \"%d\",", devices[i].rssi);
-        fprintf(stdout,"\"batt\": \"INCLUIR\",");
-        fprintf(stdout,"\"initcode\": \"INCLUIR\"");
+        fprintf(stdout,"\"batt\": \"50\",");
+        fprintf(stdout,"\"initcode\": \"%s\"", devices[i].remote_address ? devices[i].remote_address : "(null)");
         fprintf(stdout, "}");
     }
 }
